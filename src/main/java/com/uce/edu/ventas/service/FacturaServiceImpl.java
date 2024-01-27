@@ -7,6 +7,8 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FacturaServiceImpl implements IFacturaService {
     @Autowired
@@ -20,5 +22,25 @@ public class FacturaServiceImpl implements IFacturaService {
     @Override
     public void guardar(Factura factura) {
         this.iFacturaRepository.insertar(factura);
+    }
+
+    @Override
+    public List<Factura> buscarFacturasInnerJoin() {
+        return this.iFacturaRepository.seleccionarFacturasInnerJoin();
+    }
+
+    @Override
+    public List<Factura> buscarFacturasRightJoin() {
+        return this.iFacturaRepository.seleccionarFacturasRightJoin();
+    }
+
+    @Override
+    public List<Factura> buscarFacturasLeftJoin() {
+        return this.iFacturaRepository.seleccionarFacturasLeftJoin();
+    }
+
+    @Override
+    public List<Factura> buscarFacturasFullJoin() {
+        return this.iFacturaRepository.seleccionarFacturasFullJoin();
     }
 }

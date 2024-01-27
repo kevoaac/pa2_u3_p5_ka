@@ -13,6 +13,15 @@ import java.util.List;
 
 @SpringBootApplication
 public class Pa2U3P5KaApplication implements CommandLineRunner {
+    // Join Types en Jakarta Persistence
+    // 1) JOIN
+    //  1.1 INNER JOIN
+    //  1.2 OUTHER JOIN
+    //      1.2.1 LEFT
+    //      1.2.2 RIGHT
+    //      1.2.3 FULL
+    // 2) JOIN WHERE
+    // 3) FETCH JOIN
     @Autowired
     private IFacturaService iFacturaService;
 
@@ -22,31 +31,24 @@ public class Pa2U3P5KaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Factura fac = new Factura();
-        fac.setCedula("456456");
-        fac.setFecha(LocalDateTime.now());
-        fac.setNumero("0001-02569");
+        System.out.println("\n>>>INNER JOIN");
+        List<Factura> lista = this.iFacturaService.buscarFacturasInnerJoin();
+        lista.forEach(System.out::println);
 
-        DetalleFactura det1 = new DetalleFactura();
-        det1.setCantidad(4);
-        det1.setCodigoBarras("45764567");
-        det1.setNombreProducto("Cocacola");
-        det1.setFactura(fac);
+        System.out.println("\n>>>RIGHT JOIN");
+        List<Factura> lista2 = this.iFacturaService.buscarFacturasRightJoin();
+        lista2.forEach(fact -> System.out.println(fact.getNumero()));
 
-        DetalleFactura det2 = new DetalleFactura();
-        det2.setCantidad(2);
-        det2.setCodigoBarras("54343434");
-        det2.setNombreProducto("Leche Vita");
-        det2.setFactura(fac);
+        System.out.println("\n>>>LEFT JOIN");
+        List<Factura> lista3 = this.iFacturaService.buscarFacturasLeftJoin();
+        lista3.forEach(fact -> System.out.println(fact.getNumero()));
 
-        fac.setDetallesFactura(List.of(det1, det2));
-
-        // this.iFacturaService.guardar(fac);
-
-        Factura factura = this.iFacturaService.buscarPorNumero("0001-02569");
-        System.out.println(factura);
-
-        factura.getDetallesFactura().forEach(System.out::println);
+        System.out.println("\n>>>FULL JOIN");
+        List<Factura> lista4 = this.iFacturaService.buscarFacturasFullJoin();
+        lista4.forEach(fact -> {
+            System.out.println(fact);
+            fact.getDetallesFactura().forEach(System.out::println);
+        });
 
     }
 }

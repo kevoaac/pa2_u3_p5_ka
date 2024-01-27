@@ -70,6 +70,7 @@ public class Factura {
                 ", numero='" + numero + '\'' +
                 ", fecha=" + fecha +
                 ", cedula='" + cedula + '\'' +
+//                ", detallesFactura=" + detallesFactura +
                 '}';
     }
 }
