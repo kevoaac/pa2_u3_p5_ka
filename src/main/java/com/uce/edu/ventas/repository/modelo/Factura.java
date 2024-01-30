@@ -21,7 +21,6 @@ public class Factura {
     private String cedula;
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DetalleFactura> detallesFactura;
-
     // SET Y GET
     public Integer getId() {
         return id;
@@ -70,7 +69,7 @@ public class Factura {
                 ", numero='" + numero + '\'' +
                 ", fecha=" + fecha +
                 ", cedula='" + cedula + '\'' +
-//                ", detallesFactura=" + detallesFactura +
+                ", detallesFactura=" + detallesFactura +
                 '}';
     }
 }

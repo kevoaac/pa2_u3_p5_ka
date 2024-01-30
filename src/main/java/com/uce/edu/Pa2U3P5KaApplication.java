@@ -26,7 +26,7 @@ public class Pa2U3P5KaApplication implements CommandLineRunner {
     // 2) JOIN WHERE
     // 3) FETCH JOIN
     @Autowired
-    private IHotelService iHotelService;
+    private IFacturaService iFacturaService;
 
     public static void main(String[] args) {
         SpringApplication.run(Pa2U3P5KaApplication.class, args);
@@ -34,34 +34,32 @@ public class Pa2U3P5KaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-        // Realizar un ejemplo de los siguientes tipos de join's:
-        // INNER
-        // LEFT
-        // RIGHT
-        // FULL
-
-        System.out.println("\n>>>INNER JOIN");
-        List<Hotel> lista = this.iHotelService.buscarPorNombreInnerJoin("Nueva Luna");
-        lista.forEach(hotel -> {
-            System.out.println(hotel);
-            hotel.getHabitaciones().forEach(habitacion -> System.out.println(habitacion.getNumero()));
+        System.out.println(">>>INNER JOIN");
+        List<Factura> lista2 = this.iFacturaService.buscarFacturasInnerJoin();
+        lista2.forEach(factura -> {
+            System.out.println(factura.getNumero());
+            factura.getDetallesFactura().forEach(det ->{
+                System.out.println(det.getNombreProducto());
+            });
         });
 
-        System.out.println("\n>>>LEFT JOIN");
-        List<Hotel> lista2 = this.iHotelService.buscarPorDireccionLeftJoin("Plaza central");
-        lista2.forEach(System.out::println);
-
-        System.out.println("\n>>>RIGHT JOIN");
-        List<Hotel> lista3 = this.iHotelService.buscarPorClaseRightJoin("vip");
-        lista3.forEach(hotel -> {
-            System.out.println(hotel);
-            hotel.getHabitaciones().forEach(habitacion -> System.out.println(habitacion.getNumero()));
+        System.out.println(">>>WHERE JOIN");
+        List<Factura> lista = this.iFacturaService.buscarFacturasWhereJoin();
+        lista.forEach(factura -> {
+            System.out.println(factura.getNumero());
+            factura.getDetallesFactura().forEach(det ->{
+                System.out.println(det.getNombreProducto());
+            });
         });
 
-        System.out.println("\n>>>FULL JOIN");
-        List<Hotel> lista4 = this.iHotelService.buscarDesdeInicialDeNombreFullJoin("L");
-        lista4.forEach(System.out::println);
+        System.out.println(">>>FETCH JOIN");
+        List<Factura> lista3 = this.iFacturaService.buscarFacturasFetchJoin();
+        lista3.forEach(factura -> {
+            System.out.println(factura.getNumero());
+            factura.getDetallesFactura().forEach(det ->{
+                System.out.println(det.getNombreProducto());
+            });
+        });
 
     }
 }

@@ -43,4 +43,14 @@ public class FacturaServiceImpl implements IFacturaService {
     public List<Factura> buscarFacturasFullJoin() {
         return this.iFacturaRepository.seleccionarFacturasFullJoin();
     }
+
+    @Override
+    public List<Factura> buscarFacturasWhereJoin() {
+        return this.iFacturaRepository.seleccionarFacturasWhereJoin();
+    }
+
+    @Override
+    public List<Factura> buscarFacturasFetchJoin() {
+        return this.iFacturaRepository.seleccionarFacturasFetchJoin();
+    }
 }

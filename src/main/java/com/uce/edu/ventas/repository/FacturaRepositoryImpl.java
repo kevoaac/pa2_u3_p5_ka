@@ -75,4 +75,34 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
         myQuery.getResultList().forEach(fact -> fact.getDetallesFactura().size());
         return myQuery.getResultList();
     }
+
+    // JOIN WHERE
+    @Override
+    public List<Factura> seleccionarFacturasWhereJoin() {
+        // SQL: SELECT f.* FROM factura f, detalle_factura d WHERE f.fact_id = d.defa_id_factura
+        // JPQL: SELECT f FROM Factura f , DetalleFactura d WHERE f.id = d.factura.id
+        // JPQL Simplificado: SELECT f FROM Factura f , DetalleFactura d WHERE f = d.factura (Comparamos Factura = Factura)
+
+        // Hibernate: select f1_0.fact_id,f1_0.fact_cedula,f1_0.fact_fecha,f1_0.fact_numero from factura f1_0,detalle_factura df1_0 where f1_0.fact_id=df1_0.defa_id_factura
+        TypedQuery<Factura> myQuery = this.entityManager.createQuery("SELECT f FROM Factura f , DetalleFactura d WHERE f = d.factura", Factura.class);
+
+        List<Factura> lista = myQuery.getResultList();
+        for (Factura fact : lista) {
+            fact.getDetallesFactura().size();
+        }
+        return lista;
+    }
+
+    // FETCH JOIN
+    @Override
+    public List<Factura> seleccionarFacturasFetchJoin() {
+        // INNER JOIN
+        // JPQL: SELECT f FROM Factura f INNER JOIN f.detallesFactura
+
+        // FETCH JOIN
+        // JPQL: SELECT f FROM Factura f JOIN FETCH f.detalleFactura d
+        TypedQuery<Factura> myQuery = this.entityManager.createQuery("SELECT f FROM Factura f JOIN FETCH f.detallesFactura d", Factura.class);
+
+        return myQuery.getResultList();
+    }
 }
