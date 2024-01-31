@@ -2,7 +2,6 @@ package com.uce.edu.hoteles.repository;
 
 import com.uce.edu.hoteles.repository.modelo.Habitacion;
 import com.uce.edu.hoteles.repository.modelo.Hotel;
-import com.uce.edu.ventas.repository.modelo.Factura;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;

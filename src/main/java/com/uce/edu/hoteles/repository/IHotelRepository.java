@@ -3,7 +3,6 @@ package com.uce.edu.hoteles.repository;
 import com.uce.edu.hoteles.repository.modelo.Habitacion;
 import com.uce.edu.hoteles.repository.modelo.Hotel;
 
-
 import java.util.List;
 
 public interface IHotelRepository {
