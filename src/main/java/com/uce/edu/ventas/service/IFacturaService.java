@@ -1,7 +1,7 @@
 package com.uce.edu.ventas.service;
 
-import com.uce.edu.ventas.repository.modelo.dto.FacturaDTO;
 import com.uce.edu.ventas.repository.modelo.Factura;
+import com.uce.edu.ventas.repository.modelo.dto.FacturaDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;

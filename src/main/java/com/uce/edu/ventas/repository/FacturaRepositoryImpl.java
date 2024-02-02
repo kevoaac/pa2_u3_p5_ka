@@ -1,7 +1,7 @@
 package com.uce.edu.ventas.repository;
 
-import com.uce.edu.ventas.repository.modelo.dto.FacturaDTO;
 import com.uce.edu.ventas.repository.modelo.Factura;
+import com.uce.edu.ventas.repository.modelo.dto.FacturaDTO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
