@@ -1,5 +1,6 @@
 package com.uce.edu.ventas.service;
 
+import com.uce.edu.ventas.repository.modelo.Cliente;
 import com.uce.edu.ventas.repository.modelo.dto.FacturaDTO;
 import com.uce.edu.ventas.repository.modelo.Factura;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public interface IFacturaService {
     Factura buscarPorNumero(String numero);
 
-    void guardar(Factura factura);
+    void guardar(Factura factura, Cliente cliente);
 
     void actualizar(Factura factura);
 
