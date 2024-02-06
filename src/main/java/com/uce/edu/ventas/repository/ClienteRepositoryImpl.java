@@ -13,7 +13,10 @@ public class ClienteRepositoryImpl implements IClienteRepository {
     private EntityManager entityManager;
 
     @Override
+    @Transactional(value = Transactional.TxType.REQUIRED) // T1
     public void insertar(Cliente cliente) {
+        System.out.println("Antes de ejecutar en la base");
         this.entityManager.persist(cliente);
+        System.out.println("Después de ejecutar en la base");
     }
 }

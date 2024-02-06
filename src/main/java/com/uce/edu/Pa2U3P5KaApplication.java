@@ -34,9 +34,14 @@ public class Pa2U3P5KaApplication implements CommandLineRunner {
         fact.setNumero("001-002");
 
         Cliente cli = new Cliente();
-        cli.setApellido("Parra2"); // en postgres apellido debe ser no nulo
+//        cli.setApellido("Parra2"); // en postgres apellido debe ser no nulo
         cli.setNombre("Mateo3");
 
+        System.out.println("\n REQUIRED REQUIRES_NEW");
         this.iFacturaService.guardar(fact, cli);
+
+        System.out.println("\n MANDATORY");
+        System.out.println("\n NOT_SUPPORTED");
+        this.iFacturaService.prueba();
     }
 }

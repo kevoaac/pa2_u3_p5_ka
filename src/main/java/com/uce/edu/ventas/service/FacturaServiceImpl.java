@@ -32,9 +32,22 @@ public class FacturaServiceImpl implements IFacturaService {
         System.out.println("Existe transacción -> " + TransactionSynchronizationManager.isActualTransactionActive());
         this.iFacturaRepository.insertar(factura);
         System.out.println("Paso el insert de Factura");
-        this.iClienteService.guardar(cliente);
+
+        try {// Para que no afecte a la transacción anterior debemos tratar posibles erorr aquí
+            this.iClienteService.guardar(cliente);
+        } catch (RuntimeException e) {
+            System.out.println("Error");
+        }
+
         System.out.println("Paso el insert de Cliente");
 
+    }
+
+    @Override
+    @Transactional(value = Transactional.TxType.NOT_SUPPORTED)
+    public void prueba() {
+        System.out.println(">> Este método es de prueba");
+        System.out.println("Existe transacción en metodo prueba() -> " + TransactionSynchronizationManager.isActualTransactionActive());
     }
 
     @Override
