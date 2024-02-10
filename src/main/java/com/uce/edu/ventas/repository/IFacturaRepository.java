@@ -10,6 +10,7 @@ public interface IFacturaRepository {
     Factura seleccionarPorNumero(String numero);
 
     void insertar(Factura factura);
+    List<Factura> seleccionarTodos();
 
     void actualizar(Factura factura);
 

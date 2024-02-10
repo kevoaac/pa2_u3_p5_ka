@@ -25,23 +25,8 @@ public class Pa2U3P5KaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Existe transacción -> " + TransactionSynchronizationManager.isActualTransactionActive());
 
-
-        Factura fact = new Factura();
-        fact.setCedula("123123");
-        fact.setFecha(LocalDateTime.now());
-        fact.setNumero("001-002");
-
-        Cliente cli = new Cliente();
-//        cli.setApellido("Parra2"); // en postgres apellido debe ser no nulo
-        cli.setNombre("Mateo3");
-
-        System.out.println("\n REQUIRED REQUIRES_NEW");
-        this.iFacturaService.guardar(fact, cli);
-
-        System.out.println("\n MANDATORY");
-        System.out.println("\n NOT_SUPPORTED");
-        this.iFacturaService.prueba();
+//        this.iFacturaService.pruebaSupport();
+//        this.iFacturaService.pruebaNever();
     }
 }

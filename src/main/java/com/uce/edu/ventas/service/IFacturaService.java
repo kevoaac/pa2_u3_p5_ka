@@ -12,6 +12,8 @@ public interface IFacturaService {
 
     void guardar(Factura factura, Cliente cliente);
     void prueba();
+    void pruebaSupport();
+    void pruebaNever();
 
     void actualizar(Factura factura);
 

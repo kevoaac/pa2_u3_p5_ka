@@ -33,6 +33,14 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
     }
 
     @Override
+    @Transactional(value = Transactional.TxType.NOT_SUPPORTED)
+    public List<Factura> seleccionarTodos() {
+        TypedQuery<Factura> myquery = this.entityManager.createQuery("SELECT f FROM Factura f", Factura.class);
+
+        return myquery.getResultList();
+    }
+
+    @Override
     public void actualizar(Factura factura) {
         this.entityManager.merge(factura);
     }

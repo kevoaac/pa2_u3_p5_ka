@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.sql.SQLException;
 
@@ -28,5 +29,20 @@ public class ClienteServiceImpl implements IClienteService {
 //        System.out.println("Error");
 //        }
     }// commit // Aqui da el error cuando lanza la excepción
+
+    @Override
+    @Transactional(value = Transactional.TxType.SUPPORTS)
+    public void pruebaSupports() {
+        System.out.println("Este es un ClienteServiceImpl método supports");
+        System.out.println("Existe transacción en metodo pruebaSupport() -> " + TransactionSynchronizationManager.isActualTransactionActive());
+
+    }
+
+    @Override
+    @Transactional(value = Transactional.TxType.NEVER)
+    public void pruebaNever() {
+        System.out.println("Este es un ClienteServiceImpl método Never");
+        System.out.println("Existe transacción en metodo pruebaSupport() -> " + TransactionSynchronizationManager.isActualTransactionActive());
+    }
 
 }

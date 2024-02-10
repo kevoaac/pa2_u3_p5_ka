@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class FacturaServiceImpl implements IFacturaService {
     @Override
     @Transactional(value = Transactional.TxType.REQUIRED) // T1
     public void guardar(Factura factura, Cliente cliente) {
+
+        factura.setValorIVA(new BigDecimal(12));
         // TransactionSynchronizationManager -> De support
         System.out.println("Existe transacción -> " + TransactionSynchronizationManager.isActualTransactionActive());
         this.iFacturaRepository.insertar(factura);
@@ -48,6 +51,21 @@ public class FacturaServiceImpl implements IFacturaService {
     public void prueba() {
         System.out.println(">> Este método es de prueba");
         System.out.println("Existe transacción en metodo prueba() -> " + TransactionSynchronizationManager.isActualTransactionActive());
+    }
+
+    @Override
+    @Transactional(value = Transactional.TxType.REQUIRED)
+    public void pruebaSupport() {
+        System.out.println("Existe transacción en metodo FacturaServiceImpl pruebaSupport() -> " + TransactionSynchronizationManager.isActualTransactionActive());
+        this.iClienteService.pruebaSupports();
+
+    }
+
+    @Override
+    @Transactional(value = Transactional.TxType.REQUIRED) // Si tenemos transaccion aqui dara un error en  this.iClienteService.pruebaNever(); porque pruebaNever() tiene NEVER
+    public void pruebaNever() {
+        System.out.println("Existe transacción en metodo FacturaServiceImpl pruebaNever() -> " + TransactionSynchronizationManager.isActualTransactionActive());
+        this.iClienteService.pruebaNever();
     }
 
     @Override
