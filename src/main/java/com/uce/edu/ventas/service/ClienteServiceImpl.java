@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.sql.SQLException;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ClienteServiceImpl implements IClienteService {
@@ -21,13 +22,16 @@ public class ClienteServiceImpl implements IClienteService {
     @Transactional(value = Transactional.TxType.REQUIRES_NEW) // T2  REQUIRES_NEW Forma parte de otra transacción
     // begin
     public void guardar(Cliente cliente) {
-        // El método anterior no se debe enterar que este método tiene errores (en el caso de que esta transacción falle)
+        System.out.println("Nombre Hilo: " + Thread.currentThread().getName());
 
-//        try {// Para que no afecte a la transacción anterior debemos tratar posibles erorr aquí
         this.iClienteRepository.insertar(cliente);
-//        } catch (RuntimeException e) {
-//        System.out.println("Error");
-//        }
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }// commit // Aqui da el error cuando lanza la excepción
 
     @Override
