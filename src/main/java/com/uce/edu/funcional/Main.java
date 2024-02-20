@@ -2,6 +2,10 @@ package com.uce.edu.funcional;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
 public class Main {
     public static void main(String[] args) {
         // 1. Supplier
@@ -80,10 +84,10 @@ public class Main {
         // Métodos referenciados
         System.out.println(" >Métodos Referenciados");
 
-        IPersonaPredicate<String> predicate2= met::evaluar;
+        IPersonaPredicate<String> predicate2 = met::evaluar;
         System.out.println(predicate2.evaluar("X"));
 
-        IPersonaPredicate<Integer> predicate3= met::evaluar;
+        IPersonaPredicate<Integer> predicate3 = met::evaluar;
         System.out.println(predicate3.evaluar(8));
 
         //  4. Function ------------------------------------------------------
@@ -144,5 +148,83 @@ public class Main {
         IPersonaUnaryOperatorFunction<Empleado> unary3 = met::procesar;
         Empleado empl3 = unary3.aplicar(emp2);
         System.out.println(empl3);
+
+        // LIBRERIAS JAVA
+        System.out.println(">>>Implementación de interfaces funcionales mediante librerías java-----");
+
+        //  1. Supplier
+        System.out.println("\n >Supplier Java");
+        // Stream: Una representación/colección de elementos con funcionalidades que permiten trabajar con programación funcional
+        Stream<String> lista = Stream.generate(() -> "466456563" + "pais").limit(20);
+        lista.forEach(cadena -> System.out.println(cadena));
+
+        // 2. Consummer
+        System.out.println("\n >Consummer Java");
+
+        List<Integer> listaNumeros = Arrays.asList(1, 2, 3, 4, 5, 6, 45, 23);
+        listaNumeros.forEach(numero -> {
+            System.out.println("Se inserta");
+            System.out.println(numero);
+        });
+
+//        for (Integer numero: lista2){
+//            System.out.println("Se inserta");
+//            System.out.println(numero);
+//        }
+
+        // 3. Predicate
+        System.out.println("\n >Predicate Java");
+        // filter() recibe una IMPLEMENTACION de una Interfaz Predicate
+        Stream<Integer> listaFiltrada = listaNumeros.stream().filter(numero -> numero >= 6);
+
+        listaFiltrada.forEach(System.out::println);
+
+        // 4. Function
+        System.out.println("\n >Function Java");
+        Stream<String> listaCambiada = listaNumeros.stream().map(numero -> {
+            numero = numero * 100 / 50;
+            return "Num: " + numero;
+        });
+
+        listaCambiada.forEach(cadena -> System.out.println(cadena));
+
+
+        Ciudadano ciud01 = new Ciudadano();
+        ciud01.setApellido("Andrade");
+        ciud01.setNombre("Kevin");
+        ciud01.setProvincia("pichincha");
+        Ciudadano ciud02 = new Ciudadano();
+        ciud02.setApellido("Terán");
+        ciud02.setNombre("Daniel");
+        ciud02.setProvincia("pichincha");
+        Ciudadano ciud03 = new Ciudadano();
+        ciud03.setApellido("Jacome");
+        ciud03.setNombre("Liliana");
+        ciud03.setProvincia("pichincha");
+
+        List<Ciudadano> listaCiudadano = Arrays.asList(ciud01, ciud02, ciud03);
+
+        Stream<Empleado> listaEmpleado = listaCiudadano.stream().map(ciudadano -> {
+            Empleado empl01 = new Empleado();
+            empl01.setNombreCompleto(ciudadano.getNombre() + ciudadano.getApellido());
+            if (ciudadano.getProvincia().compareTo("pichincha") == 0) {
+                empl01.setPais("Ecuador");
+            }
+            return empl01;
+        });
+
+        listaEmpleado.forEach(empleado -> {
+            System.out.println(empleado);
+        });
+
+        // 5. Unary Operator
+        System.out.println("\n >UnaryOperator Java");
+        Stream<Integer> listaNumero2 = listaNumeros.stream().map(numero -> {
+            numero = numero * 100 / 50;
+            return numero;
+        });
+
+        listaNumero2.forEach(numero -> System.out.println(numero));
+
     }
 }
