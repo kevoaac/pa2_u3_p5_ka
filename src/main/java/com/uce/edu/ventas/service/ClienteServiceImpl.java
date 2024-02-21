@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
@@ -19,8 +20,8 @@ public class ClienteServiceImpl implements IClienteService {
     private IClienteRepository iClienteRepository;
 
     @Override
-    @Transactional(value = Transactional.TxType.REQUIRES_NEW) // T2  REQUIRES_NEW Forma parte de otra transacción
-    // begin
+    @Transactional(value = Transactional.TxType.REQUIRES_NEW)
+    @Async
     public void guardar(Cliente cliente) {
         System.out.println("Nombre Hilo: " + Thread.currentThread().getName());
 
